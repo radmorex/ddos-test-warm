@@ -1,0 +1,22 @@
+# systemd unit для агента (Linux).
+# 1) Положите agent.py в /opt/loadswarm и поставьте зависимость:
+#      sudo mkdir -p /opt/loadswarm && sudo cp agent.py /opt/loadswarm/
+#      sudo python3 -m pip install aiohttp
+# 2) Впишите адрес контроллера и токен, скопируйте unit:
+#      sudo cp scripts/loadswarm-agent.service /etc/systemd/system/
+#      sudo nano /etc/systemd/system/loadswarm-agent.service
+# 3) sudo systemctl daemon-reload && sudo systemctl enable --now loadswarm-agent
+# 4) Логи: journalctl -u loadswarm-agent -f
+
+[Unit]
+Description=LoadSwarm load-test agent
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/python3 /opt/loadswarm/agent.py --controller http://YOUR_CONTROLLER:8080 --token CHANGE_ME --name %H
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

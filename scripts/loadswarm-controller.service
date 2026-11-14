@@ -1,0 +1,22 @@
+# systemd unit для контроллера на VPS.
+# 1) Положите проект в /opt/loadswarm и создайте venv:
+#      cd /opt/loadswarm && python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
+# 2) Скопируйте этот файл в /etc/systemd/system/ и впишите свой токен:
+#      sudo cp scripts/loadswarm-controller.service /etc/systemd/system/
+#      sudo nano /etc/systemd/system/loadswarm-controller.service
+# 3) sudo systemctl daemon-reload && sudo systemctl enable --now loadswarm-controller
+
+[Unit]
+Description=LoadSwarm controller
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+WorkingDirectory=/opt/loadswarm
+Environment=LOADSWARM_TOKEN=CHANGE_ME
+ExecStart=/opt/loadswarm/.venv/bin/python controller.py --port 8080
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

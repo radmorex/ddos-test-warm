@@ -1,0 +1,30 @@
+[
+ {
+  "id": "5ed4667c",
+  "name": "Здоровье",
+  "url": "http://10.0.0.2:8000/login",
+  "method": "POST",
+  "concurrency": 30,
+  "duration_s": 30.0,
+  "timeout_s": 10.0,
+  "rampup_s": 0.0,
+  "body": "{\"u\":\"a\"}",
+  "headers": {
+   "Content-Type": "application/json"
+  }
+ },
+ {
+  "id": "2b6e2586",
+  "name": "Логин POST",
+  "url": "http://10.0.0.2:8000/login",
+  "method": "POST",
+  "concurrency": 30,
+  "duration_s": 30.0,
+  "timeout_s": 10.0,
+  "rampup_s": 0.0,
+  "body": "{\"u\":\"a\"}",
+  "headers": {
+   "Content-Type": "application/json"
+  }
+ }
+]
